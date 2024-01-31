@@ -1,6 +1,4 @@
-import { Locale } from "~/types";
-
-type Word = string;
+import { Locale, Word } from "~/types";
 
 export async function getRandomWord(
   lang: Locale = Locale.EN,
