@@ -7,6 +7,7 @@ services:
     container_name: cv_maker
     ports:
       - '3000:3000' # dev build
+      - '3001:3001' # dev build
     volumes:
       - .:/srv/
       # - ./node_modules:/srv/node_modules
