@@ -7,8 +7,9 @@ export type Word = string;
 
 export enum LetterState {
   NEW,
-  EXISTING,
+  PRESENT,
   CORRECT,
+  ABSENT,
 }
 
 export type WordleLetter = {
@@ -17,3 +18,8 @@ export type WordleLetter = {
 };
 
 export type TokenizedWord = WordleLetter[];
+
+export type ValidatorResponse = {
+  guess: TokenizedWord;
+  success: boolean;
+};

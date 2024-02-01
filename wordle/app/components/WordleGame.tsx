@@ -1,35 +1,70 @@
 import { LetterState, TokenizedWord, Word } from "~/types";
-import WordGuess from "./WordGuess";
 import { useState } from "react";
 import useKeyStrokeListener from "~/utils/keystroke-listener";
-import { wordleThemeClass, wordleGameStyle } from "~/styles/styles.css";
+import { wordleGuessValidate } from "~/utils/wordle-guess-validator";
+import WordleGrid from "./WordleGrid";
 
 type WordleGameProps = {
   secretWord: Word;
   attemps: number;
 };
 
+let currentGuess: TokenizedWord = [];
+
 export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
-  const [currentGuess, setCurrentGuess] = useState<TokenizedWord>([]);
+  const [currentAttempt, setCurrentAttempt] = useState<number>(0);
   const [guesses, setGuesses] = useState<TokenizedWord[]>([]);
 
   const handleKeyStroke = (key: string) => {
-    setCurrentGuess([
-      ...currentGuess,
-      {
-        token: key,
-        state: LetterState.NEW,
-      },
-    ]);
+    currentGuess.push({
+      token: key.toLowerCase(),
+      state: LetterState.NEW,
+    });
+
+    guesses[currentAttempt] = currentGuess;
+
+    setGuesses([...guesses]);
   };
 
-  useKeyStrokeListener(handleKeyStroke);
+  const handleBackspaceStoke = () => {
+    currentGuess = currentGuess.slice(0, -1);
+
+    guesses[currentAttempt] = currentGuess;
+
+    setGuesses([...guesses]);
+  };
+
+  const onEnterStroke = () => {
+    const validatedGuess = wordleGuessValidate(
+      secretWord,
+      currentGuess.map((e) => e.token).join(""),
+    );
+
+    // word too short
+    if (validatedGuess === false) {
+      return;
+    }
+
+    guesses[currentAttempt] = validatedGuess.guess;
+
+    console.log(guesses[currentAttempt]);
+
+    setGuesses([...guesses]);
+
+    currentGuess = [];
+    setCurrentAttempt(currentAttempt + 1);
+  };
+
+  useKeyStrokeListener(handleKeyStroke, handleBackspaceStoke, onEnterStroke);
 
   return (
-    <div className={`${wordleThemeClass} ${wordleGameStyle}`}>
-      {[...Array(attemps)].map((e, i) => (
-        <WordGuess word={currentGuess} key={i} attempt={i} />
-      ))}
-    </div>
+    <>
+      <h1>{secretWord}</h1>
+      <WordleGrid
+        guesses={guesses}
+        attemps={attemps}
+        wordLength={secretWord.length}
+      />
+    </>
   );
 }

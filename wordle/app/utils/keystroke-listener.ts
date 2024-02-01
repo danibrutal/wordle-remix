@@ -2,7 +2,11 @@ import { useEffect, useCallback } from "react";
 
 type KeyStrokeHandler = (key: string) => void;
 
-const useKeyStrokeListener = (onKeyStroke: KeyStrokeHandler): void => {
+const useKeyStrokeListener = (
+  onKeyStroke: KeyStrokeHandler,
+  onBackspaceStroke: KeyStrokeHandler,
+  onEnterStroke: KeyStrokeHandler,
+): void => {
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
       const { key } = event;
@@ -10,8 +14,12 @@ const useKeyStrokeListener = (onKeyStroke: KeyStrokeHandler): void => {
       console.log(event);
 
       // Check for alphabetic characters or the "Enter" key
-      if ((key.length === 1 && key.match(/[a-z]/i)) || key === "Enter") {
+      if (key.length === 1 && key.match(/[a-z]/i)) {
         onKeyStroke(key);
+      } else if (key === "Enter") {
+        onEnterStroke(key);
+      } else if (key === "Backspace") {
+        onBackspaceStroke(key);
       }
     },
     [onKeyStroke],

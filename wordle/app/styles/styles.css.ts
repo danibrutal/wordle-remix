@@ -1,14 +1,19 @@
 import { createTheme, globalStyle, style } from "@vanilla-extract/css";
 
 globalStyle("body", {
-  backgroundColor: "#333",
+  background: "linear-gradient(270deg, #212226 0%, #000000 100%);",
 });
+
+const palette = {
+  primary: "#000000",
+  secondary: "#3A3A3C",
+};
 
 export const [wordleThemeClass, vars] = createTheme({
   color: {
     correct: "#538D4E",
-    misplaced: "#BEA11F",
-    unchecked: "#3A3A3C",
+    present: "#BEA11F",
+    absent: palette.secondary,
     empty: "transparent",
   },
   font: {
@@ -28,18 +33,33 @@ export const letterBoxStyle = style({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "white",
+  color: "#fff",
   padding: 10,
   width: 60,
   height: 60,
   borderRadius: "4px",
   border: "2px solid",
-  borderColor: vars.color.unchecked,
+  borderColor: palette.secondary,
   fontSize: "32px",
   lineHeight: "40px",
   fontWeight: 700,
   textTransform: "capitalize",
 });
+
+export const letterCorrectStyle = style([
+  letterBoxStyle,
+  { backgroundColor: vars.color.correct, borderColor: vars.color.correct },
+]);
+
+export const letterPresentStyle = style([
+  letterBoxStyle,
+  { backgroundColor: vars.color.present, borderColor: vars.color.present },
+]);
+
+export const letterAbsentStyle = style([
+  letterBoxStyle,
+  { backgroundColor: vars.color.absent, borderColor: vars.color.absent },
+]);
 
 export const wordGuessStyle = style({
   display: "flex",
