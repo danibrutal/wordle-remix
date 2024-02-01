@@ -1,5 +1,5 @@
-import { TokenizedWord } from "~/types";
 import { wordleThemeClass, wordleGameStyle } from "~/styles/styles.css";
+import { TokenizedWord } from "~/types";
 import WordGuess from "./WordGuess";
 
 type WordleGridProps = {
@@ -17,7 +17,7 @@ export default function WordleGrid({
     <div className={`${wordleThemeClass} ${wordleGameStyle}`}>
       {[...Array(attemps)].map((_, attemptNumber) => (
         <WordGuess
-          word={guesses[attemptNumber] || []}
+          guess={guesses[attemptNumber] || []}
           key={attemptNumber}
           attempt={attemptNumber}
           wordLength={wordLength}

@@ -13,15 +13,16 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader = async () => {
-  return json({ word: await getRandomWord() });
+  return json({ secretWord: await getRandomWord() });
 };
 
 export default function Index() {
-  const { word } = useLoaderData<typeof loader>();
+  const { secretWord } = useLoaderData<typeof loader>();
 
   return (
     <div className={appStyle}>
-      <WordleGame secretWord={word} attemps={5} />
+      {/* <h1>{secretWord}</h1> */}
+      <WordleGame secretWord={secretWord} attemps={5} />
     </div>
   );
 }

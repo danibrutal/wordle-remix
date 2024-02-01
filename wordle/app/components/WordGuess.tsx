@@ -4,12 +4,12 @@ import { wordGuessStyle } from "~/styles/styles.css";
 
 type WordGuessProps = {
   attempt: number;
-  word: TokenizedWord;
+  guess: TokenizedWord;
   wordLength: number;
 };
 
 export default function WordGuess({
-  word,
+  guess,
   attempt,
   wordLength,
 }: WordGuessProps) {
@@ -20,7 +20,7 @@ export default function WordGuess({
       </span> */}
 
       {Array.from({ length: wordLength }).map((_, letterIndex) => {
-        const letter = word[letterIndex] || {
+        const letter = guess[letterIndex] || {
           token: "",
           state: LetterState.NEW,
         };

@@ -20,8 +20,6 @@ export const links: LinksFunction = () => [
     : []),
 ];
 
-console.log(links);
-
 export default function App() {
   return (
     <html lang="en">

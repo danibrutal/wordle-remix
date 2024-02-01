@@ -5,6 +5,12 @@ export enum Locale {
 
 export type Word = string;
 
+export enum GameState {
+  PLAYING,
+  WON,
+  LOST,
+}
+
 export enum LetterState {
   NEW,
   PRESENT,

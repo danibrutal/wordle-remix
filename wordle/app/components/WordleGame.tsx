@@ -1,8 +1,10 @@
-import { LetterState, TokenizedWord, Word } from "~/types";
+import { GameState, LetterState, TokenizedWord, Word } from "~/types";
 import { useState } from "react";
-import useKeyStrokeListener from "~/utils/keystroke-listener";
+import useKeyStrokeListener from "~/utils/use-keystroke-listener";
 import { wordleGuessValidate } from "~/utils/wordle-guess-validator";
 import WordleGrid from "./WordleGrid";
+import WinnerModal from "./WinnerModal";
+import LooserModal from "./LoserModal";
 
 type WordleGameProps = {
   secretWord: Word;
@@ -13,6 +15,7 @@ let currentGuess: TokenizedWord = [];
 
 export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
   const [currentAttempt, setCurrentAttempt] = useState<number>(0);
+  const [gameState, setGameState] = useState<GameState>(GameState.PLAYING);
   const [guesses, setGuesses] = useState<TokenizedWord[]>([]);
 
   const handleKeyStroke = (key: string) => {
@@ -40,17 +43,20 @@ export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
       currentGuess.map((e) => e.token).join(""),
     );
 
-    // word too short
+    // word is too short
     if (validatedGuess === false) {
       return;
     }
-
     guesses[currentAttempt] = validatedGuess.guess;
-
-    console.log(guesses[currentAttempt]);
-
     setGuesses([...guesses]);
-
+    if (validatedGuess.success) {
+      setGameState(GameState.WON);
+      return;
+    }
+    if (currentAttempt === attemps - 1) {
+      setGameState(GameState.LOST);
+      return;
+    }
     currentGuess = [];
     setCurrentAttempt(currentAttempt + 1);
   };
@@ -59,12 +65,28 @@ export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
 
   return (
     <>
-      <h1>{secretWord}</h1>
       <WordleGrid
         guesses={guesses}
         attemps={attemps}
         wordLength={secretWord.length}
       />
+
+      {gameState === GameState.WON && (
+        <WinnerModal
+          isOpen={true}
+          setOpen={() => {
+            console.log("yo");
+          }}
+        />
+      )}
+      {gameState === GameState.LOST && (
+        <LooserModal
+          isOpen={true}
+          setOpen={() => {
+            console.log("yo");
+          }}
+        />
+      )}
     </>
   );
 }

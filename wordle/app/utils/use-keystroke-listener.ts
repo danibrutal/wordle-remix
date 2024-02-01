@@ -11,8 +11,6 @@ const useKeyStrokeListener = (
     (event: KeyboardEvent) => {
       const { key } = event;
 
-      console.log(event);
-
       // Check for alphabetic characters or the "Enter" key
       if (key.length === 1 && key.match(/[a-z]/i)) {
         onKeyStroke(key);

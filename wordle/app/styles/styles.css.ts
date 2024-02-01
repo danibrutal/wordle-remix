@@ -2,6 +2,7 @@ import { createTheme, globalStyle, style } from "@vanilla-extract/css";
 
 globalStyle("body", {
   background: "linear-gradient(270deg, #212226 0%, #000000 100%);",
+  color: "white",
 });
 
 const palette = {
@@ -28,13 +29,12 @@ export const appStyle = style({
 });
 
 export const letterBoxStyle = style({
+  boxSizing: "border-box",
   backgroundColor: vars.color.empty,
   fontFamily: vars.font.body,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "#fff",
-  padding: 10,
   width: 60,
   height: 60,
   borderRadius: "4px",

@@ -1,4 +1,4 @@
-import { LetterState, ValidatorResponse, Word } from "~/types";
+import { LetterState, ValidatorResponse, Word } from "../types";
 
 export function wordleGuessValidate(
   secretWord: Word,
