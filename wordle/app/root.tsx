@@ -9,9 +9,18 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import InterFontStyles from "@fontsource/inter/700.css";
+
 export const links: LinksFunction = () => [
-  ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
+  ...(cssBundleHref
+    ? [
+        { rel: "stylesheet", href: cssBundleHref },
+        { rel: "stylesheet", href: InterFontStyles },
+      ]
+    : []),
 ];
+
+console.log(links);
 
 export default function App() {
   return (

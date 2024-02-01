@@ -1,8 +1,9 @@
 import type { MetaFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import WordleGame from "~/components/wordle.game";
+import WordleGame from "~/components/WordleGame";
 import { getRandomWord } from "~/models/words.api";
+import { appStyle } from "~/styles/styles.css";
 
 export const meta: MetaFunction = () => {
   return [
@@ -19,9 +20,8 @@ export default function Index() {
   const { word } = useLoaderData<typeof loader>();
 
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
-      <h1>My index is clean! {word}</h1>
-      <WordleGame word={word} attemps={5} />
+    <div className={appStyle}>
+      <WordleGame secretWord={word} attemps={5} />
     </div>
   );
 }
