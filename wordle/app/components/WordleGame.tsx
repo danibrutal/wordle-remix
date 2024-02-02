@@ -5,6 +5,7 @@ import { wordleGuessValidate } from "~/utils/wordle-guess-validator";
 import WordleGrid from "./WordleGrid";
 import WinnerModal from "./WinnerModal";
 import LooserModal from "./LoserModal";
+import { useNavigate } from "@remix-run/react";
 
 type WordleGameProps = {
   secretWord: Word;
@@ -17,6 +18,8 @@ export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
   const [currentAttempt, setCurrentAttempt] = useState<number>(0);
   const [gameState, setGameState] = useState<GameState>(GameState.PLAYING);
   const [guesses, setGuesses] = useState<TokenizedWord[]>([]);
+
+  const navigate = useNavigate();
 
   const handleKeyStroke = (key: string) => {
     currentGuess.push({
@@ -61,6 +64,15 @@ export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
     setCurrentAttempt(currentAttempt + 1);
   };
 
+  const onDismissModal = () => {
+    currentGuess = [];
+    setGameState(GameState.PLAYING);
+    setGuesses([]);
+    setCurrentAttempt(0);
+
+    navigate("/");
+  };
+
   useKeyStrokeListener(handleKeyStroke, handleBackspaceStoke, onEnterStroke);
 
   return (
@@ -77,6 +89,7 @@ export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
           setOpen={() => {
             console.log("yo");
           }}
+          onDismissModal={onDismissModal}
         />
       )}
       {gameState === GameState.LOST && (
@@ -85,6 +98,7 @@ export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
           setOpen={() => {
             console.log("yo");
           }}
+          onDismissModal={onDismissModal}
         />
       )}
     </>

@@ -3,7 +3,7 @@ import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
 import WordleGame from "~/components/WordleGame";
 import { getRandomWord } from "~/models/words.api";
-import { appStyle } from "~/styles/styles.css";
+import { appStyle, secretWordHintStyle } from "~/styles/styles.css";
 
 export const meta: MetaFunction = () => {
   return [
@@ -21,7 +21,7 @@ export default function Index() {
 
   return (
     <div className={appStyle}>
-      <h1>{secretWord}</h1>
+      <h1 className={secretWordHintStyle}>{secretWord}</h1>
       <WordleGame secretWord={secretWord} attemps={5} />
     </div>
   );

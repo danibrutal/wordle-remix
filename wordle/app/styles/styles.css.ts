@@ -73,3 +73,9 @@ export const wordleGameStyle = style({
   rowGap: "10px",
   flexDirection: "column",
 });
+
+export const secretWordHintStyle = style({
+  position: "absolute",
+  top: 0,
+  left: 0,
+});

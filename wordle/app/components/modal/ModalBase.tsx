@@ -1,20 +1,14 @@
-import {
-  Button,
-  Dialog,
-  DialogTrigger,
-  Heading,
-  Modal,
-} from "react-aria-components";
+import { Button, Dialog, Heading, Modal } from "react-aria-components";
 import { PropsWithChildren, ReactNode } from "react";
 import * as ModalStyles from "~/styles/modal.css";
 import { buttonFullWidth } from "~/styles/button.css";
-import { useNavigate } from "@remix-run/react";
 
 export type ModalBaseProps = {
   isOpen: boolean;
-  setOpen: () => void;
   heading: string;
   icon: ReactNode;
+  onDismissModal: () => void;
+  setOpen: () => void;
 };
 
 export default function ModalBase({
@@ -22,9 +16,9 @@ export default function ModalBase({
   setOpen,
   heading,
   icon,
+  onDismissModal,
   children,
 }: PropsWithChildren<ModalBaseProps>) {
-  const navigate = useNavigate();
   return (
     <Modal
       isDismissable
@@ -38,10 +32,7 @@ export default function ModalBase({
           {heading}
         </Heading>
         <div className={ModalStyles.modalContent}>{children}</div>
-        <Button
-          onPress={() => navigate("/", { replace: true })}
-          className={buttonFullWidth}
-        >
+        <Button onPress={onDismissModal} className={buttonFullWidth}>
           Try again
         </Button>
       </Dialog>
