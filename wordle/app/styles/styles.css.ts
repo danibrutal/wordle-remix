@@ -1,14 +1,15 @@
 import { createTheme, globalStyle, style } from "@vanilla-extract/css";
 
-globalStyle("body", {
-  background: "linear-gradient(270deg, #212226 0%, #000000 100%);",
-  color: "white",
-});
-
-const palette = {
+export const palette = {
   primary: "#000000",
   secondary: "#3A3A3C",
+  textColor: "white",
 };
+
+globalStyle("body", {
+  background: "linear-gradient(270deg, #212226 0%, #000000 100%);",
+  color: palette.textColor,
+});
 
 export const [wordleThemeClass, vars] = createTheme({
   color: {

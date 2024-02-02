@@ -14,16 +14,33 @@ export const modalOverlay = style({
 });
 
 export const modalDialog = style({
-  padding: "20px",
+  fontFamily: "Roboto",
+  padding: "32px 16px 16px 16px",
   background: "rgba(63, 58, 58, 0.6)",
-  borderRadius: "5px",
-  maxWidth: "500px",
-  maxHeight: "80vh",
+  borderRadius: "10px",
+  maxWidth: "260px",
   overflowY: "auto",
+  ":focus-visible": {
+    outline: "none",
+  },
+});
+
+export const modalFigure = style({
+  textAlign: "center",
+  fontSize: "64px",
+  lineHeight: "64px",
+  padding: 0,
+  margin: 0,
 });
 
 export const modalHeading = style({
-  marginBottom: "10px",
+  fontSize: "13px",
+  fontWeight: "500",
+  textAlign: "center",
 });
 
-export const modalContent = style({});
+export const modalContent = style({
+  textAlign: "center",
+  fontSize: "11px",
+  fontWeight: 400,
+});

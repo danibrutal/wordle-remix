@@ -5,18 +5,23 @@ import {
   Heading,
   Modal,
 } from "react-aria-components";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, ReactNode } from "react";
 import * as ModalStyles from "~/styles/modal.css";
+import { buttonFullWidth } from "~/styles/button.css";
 import { useNavigate } from "@remix-run/react";
 
 export type ModalBaseProps = {
   isOpen: boolean;
   setOpen: () => void;
+  heading: string;
+  icon: ReactNode;
 };
 
 export default function ModalBase({
   isOpen,
   setOpen,
+  heading,
+  icon,
   children,
 }: PropsWithChildren<ModalBaseProps>) {
   const navigate = useNavigate();
@@ -28,10 +33,17 @@ export default function ModalBase({
       className={ModalStyles.modalOverlay}
     >
       <Dialog className={ModalStyles.modalDialog}>
-        <Heading slot="title">Notice</Heading>
-        <p>Click outside to close this dialog.</p>
+        <figure className={ModalStyles.modalFigure}>{icon}</figure>
+        <Heading slot="title" className={ModalStyles.modalHeading}>
+          {heading}
+        </Heading>
         <div className={ModalStyles.modalContent}>{children}</div>
-        <Button onPress={() => navigate("/")}>Try again</Button>
+        <Button
+          onPress={() => navigate("/", { replace: true })}
+          className={buttonFullWidth}
+        >
+          Try again
+        </Button>
       </Dialog>
     </Modal>
   );

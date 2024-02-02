@@ -10,14 +10,14 @@ import {
 } from "@remix-run/react";
 
 import InterFontStyles from "@fontsource/inter/700.css";
+import Roboto400 from "@fontsource/roboto/400.css";
+import Roboto700 from "@fontsource/roboto/700.css";
 
 export const links: LinksFunction = () => [
-  ...(cssBundleHref
-    ? [
-        { rel: "stylesheet", href: cssBundleHref },
-        { rel: "stylesheet", href: InterFontStyles },
-      ]
-    : []),
+  { rel: "stylesheet", href: cssBundleHref as string },
+  { rel: "stylesheet", href: InterFontStyles },
+  { rel: "stylesheet", href: Roboto400 },
+  { rel: "stylesheet", href: Roboto700 },
 ];
 
 export default function App() {

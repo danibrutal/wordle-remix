@@ -21,7 +21,7 @@ export default function Index() {
 
   return (
     <div className={appStyle}>
-      {/* <h1>{secretWord}</h1> */}
+      <h1>{secretWord}</h1>
       <WordleGame secretWord={secretWord} attemps={5} />
     </div>
   );
