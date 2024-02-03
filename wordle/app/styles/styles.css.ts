@@ -11,6 +11,10 @@ globalStyle("body", {
   color: palette.textColor,
 });
 
+globalStyle("*, *::before, *::after", {
+  boxSizing: "border-box",
+});
+
 export const [wordleThemeClass, vars] = createTheme({
   color: {
     correct: "#538D4E",

@@ -12,7 +12,7 @@ const useKeyStrokeListener = (
       const { key } = event;
 
       // Check for alphabetic characters or the "Enter" key
-      if (key.length === 1 && key.match(/[a-z]/i)) {
+      if (key.length === 1 && key.match(/[a-z]/i) && !event.metaKey) {
         onKeyStroke(key);
       } else if (key === "Enter") {
         onEnterStroke(key);

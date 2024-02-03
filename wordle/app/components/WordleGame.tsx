@@ -22,6 +22,9 @@ export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
   const navigate = useNavigate();
 
   const handleKeyStroke = (key: string) => {
+    if (gameState !== GameState.PLAYING) {
+      return;
+    }
     currentGuess.push({
       token: key.toLowerCase(),
       state: LetterState.NEW,
@@ -33,6 +36,9 @@ export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
   };
 
   const handleBackspaceStoke = () => {
+    if (gameState !== GameState.PLAYING) {
+      return;
+    }
     currentGuess = currentGuess.slice(0, -1);
 
     guesses[currentAttempt] = currentGuess;
@@ -41,6 +47,9 @@ export default function WordleGame({ secretWord, attemps }: WordleGameProps) {
   };
 
   const onEnterStroke = () => {
+    if (gameState !== GameState.PLAYING) {
+      return;
+    }
     const validatedGuess = wordleGuessValidate(
       secretWord,
       currentGuess.map((e) => e.token).join(""),
