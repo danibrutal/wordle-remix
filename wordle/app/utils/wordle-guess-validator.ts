@@ -1,4 +1,11 @@
-import { LetterState, ValidatorResponse, Word } from "../types";
+import { LetterState, ValidatorResponse, Word, WordleLetter } from "../types";
+
+const frequency = (letter: string, word: string[]) => {
+  return word.reduce((prev: number, currentValue: string) => {
+    if (currentValue === letter) return prev + 1;
+    return prev;
+  }, 0);
+};
 
 export function wordleGuessValidate(
   secretWord: Word,
@@ -27,17 +34,20 @@ export function wordleGuessValidate(
     return response;
   }
 
-  // creates a set to validate letters present in the secret word
-  const letterSet = new Set(secretWord);
+  // creates temporary words to validate on
+  let tempGuess = [...guess];
+  let tempSecretWord = [...secretWord];
 
-  const validatedGuess = [...guess].map(
+  // higlights first correct letters
+  const validatedGuess: WordleLetter[] = tempGuess.map(
     (letter: string, letterIndex: number) => {
-      let state = LetterState.ABSENT;
+      let state: LetterState = LetterState.ABSENT;
 
       if (letter === secretWord[letterIndex]) {
         state = LetterState.CORRECT;
-      } else if (letterSet.has(letter)) {
-        state = LetterState.PRESENT;
+        // we remove characters from the words
+        tempGuess[letterIndex] = "-";
+        tempSecretWord[letterIndex] = "-";
       }
 
       return {
@@ -46,6 +56,22 @@ export function wordleGuessValidate(
       };
     },
   );
+
+  const letterSet = new Set(tempSecretWord);
+
+  // higlights now present letters, only
+  // if frequency of letters are same in both
+  tempGuess.map((letter: string, letterIndex: number) => {
+    if (letter === "-") return;
+
+    if (letterSet.has(letter)) {
+      const freqGuessLetter = frequency(letter, tempGuess);
+      const freqSecretWordLetter = frequency(letter, tempSecretWord);
+      if (freqGuessLetter === freqSecretWordLetter) {
+        validatedGuess[letterIndex].state = LetterState.PRESENT;
+      }
+    }
+  });
 
   return {
     guess: validatedGuess,

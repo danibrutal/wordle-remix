@@ -92,4 +92,38 @@ describe("wordle-guess-validator", () => {
 
     expect(validation).toEqual(expected);
   });
+
+  it("it should not highlight a letter twice", () => {
+    const secretWord = "apple";
+    const guess = "allee";
+    const validation = wordleGuessValidate(secretWord, guess);
+    const validatedGuess = [
+      {
+        token: "a",
+        state: LetterState.CORRECT,
+      },
+      {
+        token: "l",
+        state: LetterState.ABSENT,
+      },
+      {
+        token: "l",
+        state: LetterState.ABSENT,
+      },
+      {
+        token: "e",
+        state: LetterState.ABSENT,
+      },
+      {
+        token: "e",
+        state: LetterState.CORRECT,
+      },
+    ];
+    const expected: ValidatorResponse = {
+      guess: validatedGuess,
+      success: false,
+    };
+
+    expect(validation).toEqual(expected);
+  });
 });
