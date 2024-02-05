@@ -20,9 +20,9 @@ export default function Index() {
   const { secretWord } = useLoaderData<typeof loader>();
 
   return (
-    <div className={appStyle}>
+    <main className={appStyle}>
       <h1 className={secretWordHintStyle}>{secretWord}</h1>
       <WordleGame secretWord={secretWord} attemps={5} />
-    </div>
+    </main>
   );
 }
