@@ -7,11 +7,14 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useRouteError,
 } from "@remix-run/react";
 
 import InterFontStyles from "@fontsource/inter/700.css";
 import Roboto400 from "@fontsource/roboto/400.css";
 import Roboto700 from "@fontsource/roboto/700.css";
+import { errorMessageStyle } from "./styles/error.css";
+import SeeNoEvilMonkey from "./emojis/see-no-evil-monkey";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: cssBundleHref as string },
@@ -34,6 +37,29 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+      </body>
+    </html>
+  );
+}
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+  console.error(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <main className={errorMessageStyle}>
+          <p>
+            <SeeNoEvilMonkey /> There is an error with the server!
+          </p>
+          <p>Try again later!</p>
+        </main>
+        <Scripts />
       </body>
     </html>
   );
