@@ -6,9 +6,11 @@ export const palette = {
   textColor: "white",
 };
 
-globalStyle("body", {
+globalStyle("html, body", {
   background: "linear-gradient(270deg, #212226 0%, #000000 100%);",
   color: palette.textColor,
+  fontFamily: "Roboto",
+  fontSize: "16px",
 });
 
 globalStyle("*, *::before, *::after", {
@@ -30,7 +32,7 @@ export const [wordleThemeClass, vars] = createTheme({
 export const appStyle = style({
   display: "flex",
   justifyContent: "center",
-  padding: "160px",
+  padding: "10rem",
 });
 
 export const letterBoxStyle = style({
@@ -45,8 +47,8 @@ export const letterBoxStyle = style({
   borderRadius: "4px",
   border: "2px solid",
   borderColor: palette.secondary,
-  fontSize: "32px",
-  lineHeight: "40px",
+  fontSize: "2rem",
+  lineHeight: "2.5rem",
   fontWeight: 700,
   textTransform: "capitalize",
 });
@@ -81,5 +83,6 @@ export const wordleGameStyle = style({
 export const secretWordHintStyle = style({
   position: "absolute",
   top: 0,
-  left: 0,
+  left: "1rem",
+  color: palette.secondary,
 });

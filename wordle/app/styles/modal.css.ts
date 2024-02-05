@@ -14,7 +14,6 @@ export const modalOverlay = style({
 });
 
 export const modalDialog = style({
-  fontFamily: "Roboto",
   padding: "32px 16px 16px 16px",
   background: "rgba(63, 58, 58, 0.6)",
   borderRadius: "10px",
