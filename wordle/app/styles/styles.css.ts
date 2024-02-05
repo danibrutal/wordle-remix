@@ -6,6 +6,11 @@ export const palette = {
   textColor: "white",
 };
 
+globalStyle("*", {
+  margin: 0,
+  padding: 0,
+});
+
 globalStyle("html, body", {
   background: "linear-gradient(270deg, #212226 0%, #000000 100%);",
   color: palette.textColor,
@@ -15,6 +20,11 @@ globalStyle("html, body", {
 
 globalStyle("*, *::before, *::after", {
   boxSizing: "border-box",
+});
+
+globalStyle("p", {
+  marginBlockStart: "1rem",
+  marginBlockEnd: "1rem",
 });
 
 export const [wordleThemeClass, vars] = createTheme({

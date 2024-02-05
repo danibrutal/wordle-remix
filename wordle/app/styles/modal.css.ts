@@ -29,7 +29,7 @@ export const modalFigure = style({
   fontSize: "64px",
   lineHeight: "64px",
   padding: 0,
-  margin: 0,
+  marginBottom: "1.5rem",
 });
 
 export const modalHeading = style({
